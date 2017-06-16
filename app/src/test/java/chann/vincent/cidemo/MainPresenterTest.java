@@ -39,7 +39,7 @@ public class MainPresenterTest {
     @Test
     public void should_show_all_random_pois() throws Exception {
         // Given
-        when(provider.getPOIs()).thenReturn(Arrays.asList(new POI("titre1")));
+        when(provider.getPOIs()).thenReturn(Arrays.asList(new POI("titre1"), new POI("titre2")));
 
         // When
         presenter.showAllRandomPOIs();
