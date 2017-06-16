@@ -1,17 +1,26 @@
 apply plugin: 'com.android.application'
-apply from: "${project.rootDir}/QA/quality.gradle"
+apply plugin: 'spoon'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 
     defaultConfig {
-        applicationId "com.kodelabs.boilerplate"
-        minSdkVersion 15
-        targetSdkVersion 23
+        applicationId "chann.vincent.cidemo"
+        minSdkVersion 16
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,19 +29,46 @@ android {
     }
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // BUILD
+    compile 'com.android.support:appcompat-v7:25.3.1'
 
-    // general
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.jakewharton.timber:timber:4.1.0'
+    configurations {
+        androidTestCompile.exclude module: 'support-v4'
+        androidTestCompile.exclude module: 'support-v7'
+        androidTestCompile.exclude module: 'android'
+    }
 
-    // network
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    // UNIT TESTING
+    testCompile(
+            'junit:junit:4.12',
+            'com.android.support:support-annotations:25.3.1',
+            'com.squareup.assertj:assertj-android:1.0.0',
+            'org.mockito:mockito-core:1.9.5',
+            'org.assertj:assertj-core:1.7.0'
+    )
+    testCompile('org.robolectric:robolectric:2.4') {
+        exclude group: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents'
+    }
 
-    // tests
-    testCompile 'junit:junit:4.12'
-    testCompile "org.mockito:mockito-core:1.+"
+    // INTEGRATION TESTING
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2',
+            'com.android.support.test.espresso:espresso-idling-resource:2.2.2',
+            'com.android.support.test:testing-support-lib:0.1',
+            'com.squareup.spoon:spoon-client:1.1.8'
+    )
+   androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+       exclude group: 'com.android.support', module: 'support-annotations'
+       exclude group: 'com.android.support', module: 'appcompat-v7'
+       exclude group: 'com.android.support', module: 'design'
+       exclude group: 'com.android.support', module: 'recyclerview-v7'
+       exclude group: 'com.android.support', module: 'support-v4'
+       exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
 }
