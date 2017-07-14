@@ -29,8 +29,8 @@ public class MainActivityTest {
     public void mainActivityTest() throws InterruptedException {
         ViewInteraction appCompatButton = onView(allOf(withId(R.id.button_randomize), withText("randomize"), isDisplayed()));
 
-        for (int count = 0; count < 20; count++) {
-            SystemClock.sleep(1000);
+        for (int count = 0; count < 150; count++) {
+            SystemClock.sleep(2000);
             appCompatButton.perform(click());
         }
     }
