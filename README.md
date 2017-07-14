@@ -8,3 +8,6 @@ https://github.com/jeremiemartinez/installed_apps/
 
 Instrumentation tests on BitRise :
 https://discuss.bitrise.io/t/instrumentation-run-failed-due-to-process-crashed/841/7
+
+Intrumentation tests on Firebase Test Lab : 
+https://discuss.bitrise.io/t/how-to-run-android-tests-on-firebase-testlab/2192
