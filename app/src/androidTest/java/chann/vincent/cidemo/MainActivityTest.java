@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -29,9 +28,6 @@ public class MainActivityTest {
     @Test
     public void mainActivityTest() throws InterruptedException {
         ViewInteraction appCompatButton = onView(allOf(withId(R.id.button_randomize), withText("randomize"), isDisplayed()));
-
-        // false assert
-        onView(withId(R.id.button_randomize)).check(doesNotExist());
 
         for (int count = 0; count < 20; count++) {
             SystemClock.sleep(1000);
